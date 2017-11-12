@@ -11,4 +11,4 @@ class Restaurant(models.Model):
     logo = models.ImageField(upload_to='restaurant_logo/', blank=False)
 
     def __str__(self):
-        return serlf.name
+        return self.name
