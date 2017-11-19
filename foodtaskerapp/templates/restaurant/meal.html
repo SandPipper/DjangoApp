@@ -25,7 +25,7 @@
             {% for meal in meals %}
                 <tr>
                     <td scope="row">{{ meal.id }}</td>
-                    <td><a href="#{#{% url 'restaurant-edit-meal' meal.id %}#}">
+                    <td><a href="{% url 'restaurant-edit-meal' meal.id %}">
                         {{ meal.name }}
                     </a></td>
                     <td>{{ meal.short_description }}</td>
