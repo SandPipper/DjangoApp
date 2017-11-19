@@ -8,6 +8,10 @@ body {
     background-color: #3F3F63;
 }
 
+.bg-gray {
+    background-color: #88A1B2;
+}
+
 .text-white {
     color: white;
     padding-top: 10px;
@@ -112,4 +116,14 @@ body {
 
 .panel-title {
     height: 40px;
+}
+
+.table > thead > tr > th,
+.table > thead > tr > td {
+    vertical-align: middle;
+}
+
+.table,
+.table > thead > tr > th {
+    border-color: #88A1B2;
 }
