@@ -11,7 +11,11 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
 
+    # Privacy Policy
+    url(r'^privacy/', views.privacy, name="privacy"),
     # Restaurant
+    url(r'^restaurant/$', views.restaurant_home, name='restaurant-home'),
+
     url(r'^restaurant/sign-in/$', auth_views.login,
         {'template_name': 'restaurant/sign_in.html'},
         name='restaurant-sign-in'),
@@ -34,9 +38,9 @@ urlpatterns = [
                                   name='restaurant-order'),
     url(r'^restaurant/report/$', views.restaurant_report,
                                   name='restaurant-report'),
+    url(r'^api/restaurant/order/notification/(?P<last_request_time>.+)/$',
+        apis.restaurant_order_notification),
 
-
-    url(r'^restaurant/$', views.restaurant_home, name='restaurant-home'),
     # Sign In/ Sign Up/ Sign Out
     url(r'^api/social/', include('rest_framework_social_oauth2.urls')),
     # /convert-token (sign in/ sign up)
@@ -47,5 +51,12 @@ urlpatterns = [
     url(r'^api/customer/meals/(?P<restaurant_id>\d+)$', apis.customer_get_meals),
     url(r'^api/customer/order/add/$', apis.customer_add_order),
     url(r'^api/customer/order/latest/$', apis.customer_get_latest_order),
+
+    # APIs for CUSTOMERS
+    url(r'^api/driver/order/ready/$', apis.driver_get_ready_orders),
+    url(r'^api/driver/order/pick/$', apis.driver_pick_order),
+    url(r'^api/driver/order/latest/$', apis.driver_get_latest_order),
+    url(r'^api/driver/order/complete/$', apis.driver_complete_order),
+    url(r'^api/driver/revenue/$', apis.driver_get_revenue),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

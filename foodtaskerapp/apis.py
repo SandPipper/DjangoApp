@@ -6,9 +6,11 @@ from django.views.decorators.csrf import csrf_exempt
 from oauth2_provider.models import AccessToken
 
 from foodtaskerapp.models import Restaurant, Meal, Order, OrderDetails
-from foodtaskerapp.serializers import RestaurantSerializer, MealSerializer
+from foodtaskerapp.serializers import RestaurantSerializer, MealSerializer, OrderSerializer
 
-
+#############
+# COSTUMER
+#############
 def customer_get_restaurants(request):
     restaurants = RestaurantSerializer(
         Restaurant.objects.all().order_by("id"),
@@ -32,9 +34,9 @@ def customer_get_meals(request, restaurant_id):
 def customer_add_order(request):
     if request.method == "POST":
         # Get token
-        access_token = AccessToken.objects.get(token=request.POST.get('access_token'),
-            expires__gt=timezone.now())
-
+        access_token = AccessToken.objects.get(token=request.POST.get('access_token')),# until i haven't facebook api
+            #expires__gt=timezone.now())
+        print(access_token)
         # Get profile
         customer = access_token.user.customer
 
@@ -57,10 +59,10 @@ def customer_add_order(request):
             # Step 1 - Create an Order
             order = Order.objects.create(
                 customer = customer,
-                restaurant_id = requets.POST["restaurant_id"],
+                restaurant_id = request.POST["restaurant_id"],
                 total = order_total,
                 status = Order.COOKING,
-                address = requets.POST["address"]
+                address = request.POST["address"]
             )
             # Step 2 - Create Order Details
             for meal in order_details:
@@ -71,8 +73,54 @@ def customer_add_order(request):
                     sub_total = Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"]
                 )
 
-            return JsonRespones({"status": "success"})
+            return JsonResponse({"status": "success"})
 
 
 def customer_get_latest_order(request):
+    access_token = AccessToken.objects.get(token=request.GET.get("access_token"),
+        expires__gt=timezone.now())
+    customer = access_token.user.customer
+    order = OrderSerializer(Order.objects.filter(customer=customer).last()).data
+
+    return JsonResponse({"order": order})
+
+#############
+# RESTAURANT
+#############
+def restaurant_order_notification(request, last_request_time):
+    notification = Order.objects.filter(restaurant=request.user.restaurant,
+        created_at__gt=last_request_time).count()
+
+    # select count(*) from Orders
+    # where restaurant = request.user.restaurant
+    # AND created_at > last_request_time
+
+    return JsonResponse({"notification": notification})
+
+
+#############
+# DRIVERS
+#############
+
+def driver_get_ready_orders(request):
+    orders = OrderSerializer(
+        Order.objects.filter(status=Order.READY, driver=None).order_by("-id"),
+        many=True
+    ).data
+    return JsonResponse({"orders": orders})
+
+
+def driver_pick_order(request):
+    return JsonResponse({})
+
+
+def driver_get_latest_order(request):
+    return JsonResponse({})
+
+
+def driver_complete_order(request):
+    return JsonResponse({})
+
+
+def driver_get_revenue(request):
     return JsonResponse({})

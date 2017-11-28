@@ -11,6 +11,9 @@ from foodtaskerapp.models import Meal, Order
 def home(request):
     return redirect(restaurant_home)
 
+def privacy(request):
+    return render(request, 'restaurant/privacy.html')
+
 
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_home(request):
