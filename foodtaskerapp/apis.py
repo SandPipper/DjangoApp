@@ -9,7 +9,7 @@ from foodtaskerapp.models import Restaurant, Meal, Order, OrderDetails
 from foodtaskerapp.serializers import RestaurantSerializer, MealSerializer, OrderSerializer
 
 #############
-# COSTUMER
+# CUSTOMER
 #############
 def customer_get_restaurants(request):
     restaurants = RestaurantSerializer(
@@ -34,8 +34,8 @@ def customer_get_meals(request, restaurant_id):
 def customer_add_order(request):
     if request.method == "POST":
         # Get token
-        access_token = AccessToken.objects.get(token=request.POST.get('access_token')),# until i haven't facebook api
-            #expires__gt=timezone.now())
+        access_token = AccessToken.objects.get(token=request.POST.get('access_token'),# until i haven't facebook api
+            expires__gt=timezone.now())
         print(access_token)
         # Get profile
         customer = access_token.user.customer

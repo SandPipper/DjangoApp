@@ -52,8 +52,8 @@ urlpatterns = [
     url(r'^api/customer/order/add/$', apis.customer_add_order),
     url(r'^api/customer/order/latest/$', apis.customer_get_latest_order),
 
-    # APIs for CUSTOMERS
-    url(r'^api/driver/order/ready/$', apis.driver_get_ready_orders),
+    # APIs for DRIVERS
+    url(r'^api/driver/orders/ready/$', apis.driver_get_ready_orders),
     url(r'^api/driver/order/pick/$', apis.driver_pick_order),
     url(r'^api/driver/order/latest/$', apis.driver_get_latest_order),
     url(r'^api/driver/order/complete/$', apis.driver_complete_order),

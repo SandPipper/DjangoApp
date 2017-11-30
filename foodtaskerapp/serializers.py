@@ -75,4 +75,4 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ("id", "customer", "restaurant", "driver", "order_details",
-                  "total", "status", "adderss")
+                  "total", "status", "address")
