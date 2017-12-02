@@ -184,3 +184,5 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
     # 'foodtaskerapp.social_auth_pipeline.create_user_by_type',  # <--- set the path to the function
 )
+
+STRIPE_API_KEY = 'sk_test_tra8ofWYRyB1OxM8ipjIIVXA'
