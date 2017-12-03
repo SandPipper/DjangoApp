@@ -8,3 +8,4 @@ whitenoise==3.3.1
 dj-database-url==0.4.2
 psycopg2==2.6.2
 stripe==1.75.1
+ django-jet==1.0.6

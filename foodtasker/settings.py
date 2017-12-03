@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['thawing-falls-38803.herokuapp.com', '127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
